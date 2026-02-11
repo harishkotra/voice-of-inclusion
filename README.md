@@ -6,6 +6,11 @@ Powered by **Sarvam AI**'s state-of-the-art models:
 -   **Mayura**: For accurate translation to Indian languages.
 -   **Bulbul (v3)**: For high-quality, emotionally rich text-to-speech.
 
+<img width="1441" height="965" alt="image" src="https://github.com/user-attachments/assets/5308c735-fc1a-44cf-928f-33fc46c59a60" />
+<img width="793" height="633" alt="image" src="https://github.com/user-attachments/assets/22724772-aa98-4e34-8a4e-3ec52fd59fba" />
+
+
+
 ## ✨ Features
 
 -   **"Speak" Button**: Automatically appears when you select text.
