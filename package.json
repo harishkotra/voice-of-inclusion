@@ -1,0 +1,19 @@
+{
+  "name": "voice-of-inclusion",
+  "version": "1.0.0",
+  "description": "A browser extension to translate and speak text using Sarvam AI",
+  "scripts": {
+    "build": "vite build -c vite.background.config.js && vite build -c vite.content.config.js && vite build -c vite.popup.config.js && cp manifest.json dist/ && cp -r icons dist/ && mv dist/voice-of-inclusion.css dist/content.css",
+    "dev": "echo 'Run build manually for multiple configs'"
+  },
+  "dependencies": {
+    "sarvamai": "^0.1.0"
+  },
+  "author": "Harish Kotra",
+  "devDependencies": {
+    "vite": "^6.0.0",
+    "@types/chrome": "^0.0.260",
+    "rimraf": "^5.0.0",
+    "vite-plugin-node-polyfills": "^0.23.0"
+  }
+}

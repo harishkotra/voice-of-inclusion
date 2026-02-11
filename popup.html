@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    body {
+      width: 280px;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #1a1a1a;
+      background: #fdfdfd;
+    }
+
+    h2 {
+      margin: 0 0 16px 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #0062ff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .setting-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #666;
+    }
+
+    select {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      font-size: 14px;
+      background: white;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    select:focus {
+      border-color: #0062ff;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked+.slider {
+      background-color: #0062ff;
+    }
+
+    input:checked+.slider:before {
+      transform: translateX(20px);
+    }
+
+    .status {
+      font-size: 12px;
+      color: #888;
+      margin-top: 16px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>
+    <img src="icons/icon48.svg" width="24" height="24" style="border-radius: 4px;">
+    Voice of Inclusion
+  </h2>
+
+  <div class="setting-group">
+    <label for="language">Target Language</label>
+    <select id="language">
+      <option value="hi-IN">Hindi (hi-IN)</option>
+      <option value="bn-IN">Bengali (bn-IN)</option>
+      <option value="ta-IN">Tamil (ta-IN)</option>
+      <option value="te-IN">Telugu (te-IN)</option>
+      <option value="kn-IN">Kannada (kn-IN)</option>
+      <option value="ml-IN">Malayalam (ml-IN)</option>
+      <option value="mr-IN">Marathi (mr-IN)</option>
+      <option value="od-IN">Odia (od-IN)</option>
+      <option value="pa-IN">Punjabi (pa-IN)</option>
+      <option value="gu-IN">Gujarati (gu-IN)</option>
+    </select>
+  </div>
+
+  <div class="setting-group toggle-row">
+    <label for="slowMode" style="margin:0">Slow Mode (0.8x)</label>
+    <label class="switch">
+      <input type="checkbox" id="slowMode">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="status" id="status">Settings saved automatically</div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+
+</html>

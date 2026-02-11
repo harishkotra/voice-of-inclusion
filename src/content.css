@@ -1,0 +1,45 @@
+#sarvam-speak-btn {
+  position: absolute;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #0062ff 0%, #0038b8 100%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 98, 255, 0.3);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  transition: transform 0.2s, opacity 0.2s;
+  animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#sarvam-speak-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 98, 255, 0.4);
+}
+
+#sarvam-speak-btn .icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#sarvam-speak-btn.loading {
+  opacity: 0.8;
+  cursor: wait;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
