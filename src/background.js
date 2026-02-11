@@ -36,26 +36,39 @@ async function handleTranslateAndSpeak(request, sendResponse) {
         const translatedText = translateResponse.translated_text;
 
         // 2. Text to Speech (Bulbul v3)
-        const ttsResponse = await client.textToSpeech.convert({
-            text: translatedText,
-            target_language_code: targetLanguage,
-            speaker: "aditya", // Using 'aditya' as per requirements
-            pace: speed || 0.8, // Default to 0.8 as per requirements if not specified
-            speech_sample_rate: 24000,
-            enable_preprocessing: true,
-            model: "bulbul:v3"
+        // Using fetch directly to ensure model parameter is passed correctly and not dropped by SDK defaults
+        const ttsResponse = await fetch("https://api.sarvam.ai/text-to-speech", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "api-subscription-key": API_KEY
+            },
+            body: JSON.stringify({
+                text: translatedText,
+                target_language_code: targetLanguage,
+                speaker: "aditya",
+                pace: speed || 0.8,
+                speech_sample_rate: 24000,
+                enable_preprocessing: true,
+                model: "bulbul:v3"
+            })
         });
 
-        // The SDK likely returns the full response object. 
-        // We need to check the format. Usually it contains 'audios' array with base64 strings.
-        // Based on knowledge of similar APIs:
+        if (!ttsResponse.ok) {
+            const errorBody = await ttsResponse.text();
+            throw new Error(`TTS API Error: ${ttsResponse.status} ${errorBody}`);
+        }
+
+        const ttsData = await ttsResponse.json();
+
+        // formats: audios: ["base64"]
         let audioData = "";
-        if (ttsResponse.audios && Array.isArray(ttsResponse.audios)) {
-            audioData = ttsResponse.audios.join("");
-        } else if (typeof ttsResponse === 'string') {
-            // sometimes it might just be the string if the SDK simplifies it? 
-            // safer to assume structure: { audios: ["base64..."] }
-            audioData = ttsResponse;
+        if (ttsData.audios && Array.isArray(ttsData.audios)) {
+            audioData = ttsData.audios[0];
+        } else {
+            // Fallback/Safety
+            console.warn("Unexpected TTS response format", ttsData);
+            if (Array.isArray(ttsData) && ttsData.length > 0) audioData = ttsData[0];
         }
 
         sendResponse({ success: true, audio: audioData });

@@ -38,8 +38,43 @@
     opacity: 0;
     transform: scale(0.8) translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: scale(1) translateY(0);
   }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  display: none;
+}
+
+#sarvam-speak-btn.loading .icon-container {
+  display: none;
+}
+
+#sarvam-speak-btn.loading .spinner {
+  display: block;
+}
+
+#sarvam-speak-btn.loading {
+  cursor: wait;
+  padding-right: 20px;
+  /* Adjust padding to accommodate spinner if needed, though flex handles it */
 }

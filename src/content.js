@@ -17,6 +17,7 @@ function createButton() {
         <path d="M12 17V21M8 21H16" stroke="white" stroke-width="2" stroke-linecap="round"/>
       </svg>
     </div>
+    <div class="spinner"></div>
     <span class="btn-text">Speak</span>
   `;
     document.body.appendChild(btn);
@@ -65,10 +66,21 @@ async function handleButtonClick() {
     button.classList.add('loading');
 
     try {
-        // Get settings
-        const settings = await chrome.storage.local.get(['targetLanguage', 'slowMode']);
-        const targetLanguage = settings.targetLanguage || 'hi-IN'; // Default Hindi
-        const speed = settings.slowMode ? 0.8 : 1.0;
+        // Get settings with fallback
+        let targetLanguage = 'hi-IN';
+        let speed = 0.8;
+
+        try {
+            if (chrome && chrome.storage && chrome.storage.local) {
+                const settings = await chrome.storage.local.get(['targetLanguage', 'slowMode']);
+                targetLanguage = settings.targetLanguage || 'hi-IN';
+                speed = settings.slowMode ? 0.8 : 1.0;
+            } else {
+                console.warn("chrome.storage.local not available, using defaults.");
+            }
+        } catch (e) {
+            console.warn("Failed to read settings, using defaults:", e);
+        }
 
         // Send to background
         const response = await chrome.runtime.sendMessage({
